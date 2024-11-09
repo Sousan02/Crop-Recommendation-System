@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 
 # Load the dataset
-DATASET_PATH =  "D:\Crop_recommendation.csv"
+DATASET_PATH =  r"D:\Crop_recommendation.csv"
 
 # Load and preview dataset
 data = pd.read_csv(DATASET_PATH)
