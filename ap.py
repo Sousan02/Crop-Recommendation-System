@@ -29,16 +29,6 @@ rf_model.fit(X_train_noisy, y_train)
 accuracy = rf_model.score(X_test_noisy, y_test)
 st.markdown(f"<h1 style='font-weight:bold; font-size:40px;'>Model Accuracy: {accuracy * 100:.2f}%</h1>", unsafe_allow_html=True)
 
-# Display histograms without seaborn
-st.subheader("Distribution of Nitrogen Content")
-st.bar_chart(data['N'].value_counts())
-
-st.subheader("Distribution of Phosphorous Content")
-st.bar_chart(data['P'].value_counts())
-
-st.subheader("Distribution of Potassium Content")
-st.bar_chart(data['K'].value_counts())
-
 # User input for prediction
 st.sidebar.title("Input Soil & Environmental Conditions")
 nitrogen = st.sidebar.slider("Nitrogen Content (N)", 0, 140)
