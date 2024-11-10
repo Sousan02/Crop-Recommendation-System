@@ -1,13 +1,12 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 
 # Load the dataset
-DATASET_PATH =  r"D:\Crop_recommendation.csv"
+DATASET_PATH = r"D:\Crop_recommendation.csv"
 
 # Load and preview dataset
 data = pd.read_csv(DATASET_PATH)
@@ -36,29 +35,24 @@ rf_model.fit(X_train_noisy, y_train)
 accuracy = rf_model.score(X_test_noisy, y_test)
 st.markdown(f"<h1 style='font-weight:bold; font-size:40px;'>Model Accuracy: {accuracy * 100:.2f}%</h1>", unsafe_allow_html=True)
 
+# Distribution plots using Seaborn
+# Nitrogen Content Distribution
 st.subheader("Distribution of Nitrogen Content")
-fig, ax = plt.subplots(figsize=(8, 6))
-sns.histplot(data['N'], kde=True, color='green', ax=ax)  # Green color for Nitrogen
-ax.set_title('Nitrogen Content Distribution')
-ax.set_xlabel('Nitrogen Level')
-ax.set_ylabel('Frequency')
-st.pyplot(fig)
+nitrogen_fig = sns.histplot(data['N'], kde=True, color='green')
+st.pyplot(nitrogen_fig.figure)
+nitrogen_fig.figure.clf()  # Clear the figure after rendering
 
+# Phosphorous Content Distribution
 st.subheader("Distribution of Phosphorous Content")
-fig, ax = plt.subplots(figsize=(8, 6))
-sns.histplot(data['P'], kde=True, color='blue', ax=ax)  # Blue color for Phosphorus
-ax.set_title('Phosphorous Content Distribution')
-ax.set_xlabel('Phosphorous Level')
-ax.set_ylabel('Frequency')
-st.pyplot(fig)
+phosphorus_fig = sns.histplot(data['P'], kde=True, color='blue')
+st.pyplot(phosphorus_fig.figure)
+phosphorus_fig.figure.clf()  # Clear the figure after rendering
 
+# Potassium Content Distribution
 st.subheader("Distribution of Potassium Content")
-fig, ax = plt.subplots(figsize=(8, 6))
-sns.histplot(data['K'], kde=True, color='orange', ax=ax)  # Orange color for Potassium
-ax.set_title('Potassium Content Distribution')
-ax.set_xlabel('Potassium Level')
-ax.set_ylabel('Frequency')
-st.pyplot(fig)
+potassium_fig = sns.histplot(data['K'], kde=True, color='orange')
+st.pyplot(potassium_fig.figure)
+potassium_fig.figure.clf()  # Clear the figure after rendering
 
 # User input for prediction
 st.sidebar.title("Input Soil & Environmental Conditions")
@@ -80,7 +74,6 @@ user_input = pd.DataFrame({
     'ph': [ph],
     'rainfall': [rainfall]
 })
-
 
 st.markdown("## User Input Conditions:")
 st.write(user_input)
