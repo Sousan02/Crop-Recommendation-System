@@ -1,21 +1,16 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 
 # Load the dataset
 DATASET_PATH = r"D:\Crop_recommendation.csv"
-
-# Load and preview dataset
 data = pd.read_csv(DATASET_PATH)
 
 # Streamlit UI
 st.title("Crop Recommender App")
 st.write("This app helps farmers select the best crop based on soil and environmental conditions.")
-
-# Preview the dataset
 st.write("Dataset Preview:")
 st.write(data.head())
 
@@ -28,31 +23,21 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_
 X_train_noisy = X_train + np.random.normal(0, 0.1, X_train.shape)
 X_test_noisy = X_test + np.random.normal(0, 0.1, X_test.shape)
 rf_model = RandomForestClassifier(n_estimators=70, max_depth=4, random_state=42)
-
 rf_model.fit(X_train_noisy, y_train)
 
 # Display accuracy on test data
 accuracy = rf_model.score(X_test_noisy, y_test)
 st.markdown(f"<h1 style='font-weight:bold; font-size:40px;'>Model Accuracy: {accuracy * 100:.2f}%</h1>", unsafe_allow_html=True)
 
-# Distribution plots using Seaborn
-# Nitrogen Content Distribution
+# Display histograms without seaborn
 st.subheader("Distribution of Nitrogen Content")
-nitrogen_fig = sns.histplot(data['N'], kde=True, color='green')
-st.pyplot(nitrogen_fig.figure)
-nitrogen_fig.figure.clf()  # Clear the figure after rendering
+st.bar_chart(data['N'].value_counts())
 
-# Phosphorous Content Distribution
 st.subheader("Distribution of Phosphorous Content")
-phosphorus_fig = sns.histplot(data['P'], kde=True, color='blue')
-st.pyplot(phosphorus_fig.figure)
-phosphorus_fig.figure.clf()  # Clear the figure after rendering
+st.bar_chart(data['P'].value_counts())
 
-# Potassium Content Distribution
 st.subheader("Distribution of Potassium Content")
-potassium_fig = sns.histplot(data['K'], kde=True, color='orange')
-st.pyplot(potassium_fig.figure)
-potassium_fig.figure.clf()  # Clear the figure after rendering
+st.bar_chart(data['K'].value_counts())
 
 # User input for prediction
 st.sidebar.title("Input Soil & Environmental Conditions")
