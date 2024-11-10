@@ -61,6 +61,7 @@ referencing
 requests
 rich
 rpds-py
+sklearn
 scikit-learn
 scipy
 seaborn
